@@ -1,16 +1,23 @@
-FROM python:3.10-slim
+# Utilizar una imagen base de Python
+FROM python:3.13-slim
 
-COPY ./src/ /src
+# Evitar que Python genere archivos .pyc y establecer salida sin buffer
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
 
-WORKDIR /src
+# Directorio de trabajo
+WORKDIR /app
 
-RUN apt-get update                      && \
-    apt-get install -y git              && \
-    pip install -r requirements.txt     && \
-    rm -rf /var/lib/apt/lists/*
+# Copiar y instalar dependencias
+COPY requirements.txt /app/
+RUN pip install --upgrade pip && \
+    pip install -r requirements.txt
 
-ENTRYPOINT ["python"]
+# Copiar el resto del proyecto
+COPY . /app
 
+# Exponer el puerto 5000
 EXPOSE 5000
 
-CMD ["__init__.py"]
+# Comando para ejecutar la aplicación
+CMD ["python", "run.py"]

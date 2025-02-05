@@ -1,0 +1,30 @@
+openapi: "3.0.2"
+info:
+  title: "Flask Redis API"
+  description: "API para consultar el estado de URLs almacenadas en Redis."
+  version: "1.0.0"
+paths:
+  /api/v1/status:
+    get:
+      summary: "Obtener el estado de las URLs"
+      responses:
+        '200':
+          description: "Lista de estados"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        url:
+                          type: string
+                        timestamp:
+                          type: string
+                        status_code:
+                          type: integer
+                        message:
+                          type: string

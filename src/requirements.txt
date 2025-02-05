@@ -1,5 +1,0 @@
-flask
-flask_restful
-flask-caching
-pyopenssl
-requests
